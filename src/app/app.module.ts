@@ -9,23 +9,25 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import * as Views from './views';
-
-export const VIEWS = [
-  Views.CarListView,
-];
+import { NetworkService } from './services/network.service';
+import { CarService } from './services/car.service';
+import { AngularMaterialModule } from './angular-material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ...VIEWS,
+    ...Object.keys(Views).map(classKey => Views[classKey]),
   ],
   imports: [
     BrowserModule,
     StoreModule.forRoot(reducers()),
     StoreDevtoolsModule.instrument({ maxAge: 100 }),
     AppRoutingModule,
+    AngularMaterialModule,
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [NetworkService, CarService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
