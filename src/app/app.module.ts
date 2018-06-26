@@ -13,6 +13,8 @@ import { NetworkService } from './services/network.service';
 import { CarService } from './services/car.service';
 import { AngularMaterialModule } from './angular-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     AngularMaterialModule,
     BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [NetworkService, CarService],
   bootstrap: [AppComponent],

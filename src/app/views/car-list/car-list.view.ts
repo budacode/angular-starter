@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { CarService } from '../../services/car.service';
 import { Store } from '@ngrx/store';
 import { State as RootState } from '../../reducers/root.reducer';
-// import * as carReducer from '../../reducers/cars.reducer';
-import { AddCarsAction } from '../../actions/cars.action';
+import * as carsReducer from '../../reducers/cars.reducer';
+import { Car } from '../../interfaces/car.interface';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-car-list',
@@ -10,37 +12,22 @@ import { AddCarsAction } from '../../actions/cars.action';
   styleUrls: ['./car-list.view.scss'],
 })
 
-export class CarListView {
-  constructor(private store: Store<RootState>) {
-    //
+export class CarListView implements OnDestroy {
+  public cars: Car[] = [];
+  public carsSubscription: Subscription;
+
+  constructor(private store: Store<RootState>, private carService: CarService) {
+
+    this.carsSubscription = this.store.select(carsReducer.selectCars).subscribe((cars: Car[]) => {
+      if (cars.length === 0) {
+        this.carService.getCars();
+      } else {
+        this.cars = cars;
+      }
+    });
   }
 
-  public addCars(): void {
-    const cars = [
-      {
-        id: '1',
-        title: 'auto1',
-        description: 'asfafdaf',
-        brand: 'honda',
-        type: 'civic',
-        year: 2006,
-        cylinderVolume: 1300,
-        phoneNumber: 3670895432,
-        emailAddress: 'valaki@gocg.com',
-      },
-      {
-        id: '2',
-        title: 'auto2',
-        description: 'gegrseges',
-        brand: 'mazda',
-        type: 'mx-5',
-        year: 2007,
-        cylinderVolume: 2300,
-        phoneNumber: 3670895432,
-        emailAddress: 'valaki@gocg.com',
-      },
-    ];
-
-    this.store.dispatch(new AddCarsAction(cars));
+  public ngOnDestroy(): void {
+    this.carsSubscription.unsubscribe();
   }
 }

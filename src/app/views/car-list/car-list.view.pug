@@ -1,1 +1,3 @@
-button((click)='addCars()') Add cars
+mat-card(*ngFor='let car of cars', routerLink='/car-details/{{car.id}}')
+  h1 {{ car.title }}
+  p {{ car.description }}

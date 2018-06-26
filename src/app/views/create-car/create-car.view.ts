@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CarService } from '../../services/car.service';
 
 @Component({
   selector: 'app-create-car',
@@ -7,7 +8,23 @@ import { Component } from '@angular/core';
 })
 
 export class CreateCarView {
-  constructor() {
+  public car: any = {
+    title: '',
+    description: '',
+    brand: '',
+    type: '',
+    year: null,
+    cylinderVolume: null,
+    phoneNumber: null,
+    emailAddress: '',
+  };
+
+
+  constructor(public carService: CarService) {
     //
+  }
+
+  public createCar(): void {
+    this.carService.createCar(this.car);
   }
 }

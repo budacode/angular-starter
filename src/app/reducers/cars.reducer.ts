@@ -23,4 +23,8 @@ export function reducer(state: State = initialState, action: CarsActions.Actions
   }
 }
 export const selectCarsState = createFeatureSelector<State>('cars');
-// export const selectCarNameState = createSelector(selectCarsState, (state: State) => state.name);
+export const selectCars = createSelector(selectCarsState, (state: State) => state.cars);
+export const selectCar = (id: number) =>
+  createSelector(selectCarsState, (state: State) => {
+    return state.cars.find(car => car.id === id);
+  });
