@@ -1,26 +1,26 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as CarsActions from '../actions/cars.action';
-// import { Status } from '../interfaces';
+import { Car } from '../interfaces/car.interface';
 
 export interface State {
-  name: string;
+  cars: Car[];
 }
 
 const initialState: State = {
-  name: null,
+  cars: [],
 };
 export function reducer(state: State = initialState, action: CarsActions.Actions): State {
   switch (action.type) {
-    // case AuthActions.SET_LOGIN_STATUS: {
-    //   return {
-    //     ...state,
-    //     status: action.payload,
-    //   };
-    // }
+    case CarsActions.ADD_CARS_ACTION: {
+      return {
+        ...state,
+        cars: state.cars.concat(action.payload),
+      };
+    }
     default: {
       return state;
     }
   }
 }
 export const selectCarsState = createFeatureSelector<State>('cars');
-// export const selectAuthenticatedState = createSelector(selectAuthState, (state: State) => state.authenticated);
+// export const selectCarNameState = createSelector(selectCarsState, (state: State) => state.name);

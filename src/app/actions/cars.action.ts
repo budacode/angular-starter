@@ -1,13 +1,12 @@
 import { Action } from '@ngrx/store';
-// import { Status } from '../interfaces';
+import { Car } from '../interfaces/car.interface';
 
-export const SET_LOGIN_STATUS = 'SET_LOGIN_STATUS';
+export const ADD_CARS_ACTION = 'ADD_CARS_ACTION';
 
-export class SetLoginStatusAction implements Action {
-  public readonly type: string = SET_LOGIN_STATUS;
-  // constructor(public payload: Status) {}
-  public readonly payload: null;
+export class AddCarsAction implements Action {
+  public readonly type: string = ADD_CARS_ACTION;
+  constructor(public payload: Car[]) {}
 }
 
 export type Actions =
-  | SetLoginStatusAction;
+  | AddCarsAction;
